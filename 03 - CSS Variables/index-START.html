@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scoped CSS Variables and JS</title>
+  <link rel="stylesheet" href="rangestyle.css">
+</head>
+<body>
+  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <div class="main">
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+      <label for="blur">Scale:</label>
+      <input id="scale" type="range" name="scale" min="0.1" max="1.0" value="1.0" step="0.01">
+
+      <label for="blur">Blur:</label>
+      <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+      <label for="base">Base Color</label>
+      <input id="base" type="color" name="base" value="#ffc600">
+    </div>
+    <div>
+      <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+    </div>
+  </div>
+  <div class="footer">
+    <span class="credits">Thanks to @wesbos for the challenge! #JavaScript30</span>
+  </div>
+  <style>
+    :root {
+      --spacing: 50px;
+      --scale: 1.0;
+      --blur: 10px;
+      --base: #ffc600;
+    }
+
+    img {
+      padding: var(--spacing);
+      transform: scale(var(--scale));
+      filter: blur(var(--blur));
+      background-color: var(--base);
+    }
+
+    .hl {
+      color: var(--base);
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      height: 95vh;
+    }
+
+    .footer {
+      background-color: rgba(0, 0, 0, 0.2);
+      display: flex;
+      min-height: 5vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .credits {
+      font-size: 15px;
+      color: #ffc600;
+    }
+
+    /*
+      misc styles, nothing to do with CSS variables
+    */
+
+    body {
+      text-align: center;
+      background: #193549;
+      display: flex;
+      flex-direction: column;
+      align-content: stretch;
+      flex-grow: 1;
+      height: 100vh;
+      color: white;
+      font-family: 'helvetica neue', sans-serif;
+      font-weight: 100;
+      font-size: 30px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .controls {
+      margin-bottom: 50px;
+    }
+
+    input {
+      width:100px;
+    }
+  </style>
+
+  <script>
+    var inputs = document.querySelectorAll('.controls input');
+    function changeValue(input) {
+      var suffix = this.dataset.sizing || "";
+      console.log(this.value);
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+    }
+
+    inputs.forEach(input => input.addEventListener('change', changeValue));
+    inputs.forEach(input => input.addEventListener('mousemove', changeValue));
+
+  </script>
+
+</body>
+</html>
