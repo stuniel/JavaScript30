@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <span class="credits">Thanks to @wesbos for the challenge! #JavaScript30</span>
+  </div>
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const list = [];
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => list.push(...data));
+// numberWithCommas function source: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function findMatches (typedLetters, array) {
+  return array.filter(name => {
+    const regex = new RegExp(typedLetters, 'gi');
+    return name.city.match(regex) || name.state.match(regex);
+  })
+}
+function updateOutput () {
+  const matchArray = findMatches(this.value, list)
+  const html = matchArray.map(place => {
+    const regex = new RegExp(this.value, 'gi');
+    const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+    const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+    return `<li><span class="name">${cityName}, ${stateName}</span><span class="population">${numberWithCommas(place.population)}</li>`;
+  }).join('');
+  output.innerHTML = html;
+}
+
+const input = document.querySelector('.search');
+const output = document.querySelector('.suggestions');
+
+input.addEventListener('change', updateOutput);
+input.addEventListener('keyup', updateOutput);
+
+</script>
+  </body>
+</html>
