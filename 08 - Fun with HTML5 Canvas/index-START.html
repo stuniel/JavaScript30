@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<button class="button b1" type="clear">CLEAR</button>
+<button class="button b2" type="normal">NORMAL</br>BRUSH</button>
+<button class="button b3" type="hsl">HSL</br>BRUSH</button>
+<canvas id="draw" width="800" height="800"></canvas>
+<div class="footer">
+  <span class="credits">Thanks to @wesbos for the challenge! #JavaScript30</span>
+</div>
+<script>
+const c = document.getElementById('draw');
+const ctx = c.getContext('2d');
+const clear = document.querySelector('button[type="clear"]');
+const normalBtn = document.querySelector('button[type="normal"]');
+const hslBtn = document.querySelector('button[type="hsl"]');
+c.width = window.innerWidth;
+c.height = window.innerHeight;
+ctx.lineJoin = "round";
+ctx.lineCap = "round";
+ctx.lineWidth = 10;
+
+let isDrawing = false;
+let fromX, fromY;
+let a = 0;
+let z = 10;
+zSize = true;
+let brushType = "normal";
+
+function draw (e) {
+  brushType == "hsl" ? drawHsl(e) : drawNormal(e);
+}
+
+function drawHsl (e) {
+  if (isDrawing) {
+    ctx.strokeStyle = `hsl(${a},100%,50%)`;
+    ctx.beginPath();
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    fromX = e.offsetX;
+    fromY = e.offsetY;
+    a++;
+    ctx.lineWidth = `${z}`;
+    if (z > 100) {zSize = false}
+    else if (z < 10) {zSize = true};
+    zSize ? z++ : z--;
+  }
+}
+
+function drawNormal (e) {
+  if (isDrawing) {
+    ctx.strokeStyle = `hsl(0,0%,0%)`;
+    ctx.beginPath();
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    fromX = e.offsetX;
+    fromY = e.offsetY;
+    ctx.strokeStyle = `hsl(0,0%,0%)`;
+    ctx.lineWidth = `${z}`;
+    if (z > 100) {zSize = false}
+    else if (z < 10) {zSize = true};
+    zSize ? z++ : z--;
+  }
+}
+
+function clearCanvas (e) {
+  ctx.clearRect(0, 0, c.width, c.height);
+}
+
+c.addEventListener('mousemove', draw);
+c.addEventListener('mousedown', function (e) {
+  isDrawing = true;
+  fromX = e.offsetX;
+  fromY = e.offsetY;
+});
+c.addEventListener('mouseup', function () { isDrawing = false});
+c.addEventListener('mouseout', function () { isDrawing = false});
+clear.addEventListener('mousedown', clearCanvas)
+normalBtn.addEventListener('mousedown', function () { brushType = "normal" });
+hslBtn.addEventListener('mousedown', function () { brushType = "hsl" });
+</script>
+
+<style>
+  html, body {
+    margin:0;
+    padding: 0;
+  }
+
+  body {
+    position: absolute;
+  }
+
+  .button {
+    position: absolute;
+    z-index: 2;
+    top: 25px;
+    left: 25px;
+    width: 100px;
+    height: 50px;
+    border: 0;
+    color: #fff;
+    background-color: hsl(0, 0%, 70%);
+    font-family: Roboto, sans-serif;
+  }
+
+  .b1 {
+    background-color: hsl(0, 50%, 50%);
+  }
+
+  .b2 {
+    left: 150px;
+  }
+
+  .b3 {
+    left: 275px;
+  }
+
+  #draw {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: hsl(0, 50%, 50%);
+    display: flex;
+    flex: 1;
+    z-index: 3;
+    min-height: 5vh;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+</body>
+</html>
