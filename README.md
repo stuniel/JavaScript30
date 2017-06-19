@@ -41,17 +41,40 @@ The `removeTransition` function will run when the transiotion ends.</br>
 <code>key.addEvenetListener('transitionend', removeTransition);</code>
 </br></br>
 
+<h2>14 - Object and Arrays - Reference vs Copy</h2>
+
+1. <b>Strings, Numbers and Booleans</b>
+</br></br>
+Variables can have a value assigned form another value:</br>
+<code>let dog = 'Max';</code></br>
+<code>let cat = dog;</code></br>
+Dog and cat will be `'Max'`. If we change the dog to `'Rex'` the cat will remain `'Max'`. Strings, numbers and booleans will create a copy of itself which will not be affected when the original one changes.
+</br></br>
+2. <b>Arrays</b>
+</br></br>
+Arrays on other hand will create a reference which will change when the original one changes.It works the other way as well. </br>
+<code>const dogs = ['Max', 'Rex', 'Tex', 'Lex'];</code></br>
+<code>const cats = dogs;</code></br>
+<code>cats[1] = 'Miau';</code></br>
+Dogs will equal <code>dogs = ['Max', 'Miau', 'Tex', 'Lex'];</code>.</br>
+We can create a copy of an array by using `*.slice()` method, `[].concat(*)`, `Array.from(*)` or ES6 feature called spread `[...*]`, where `*` represents an array name.
+</br></br>
+2. <b>Objects</b>
+</br></br>
+The same thing happen for objects. We can create a copy by using `Object.assign({}, *)`. The thing to keep in mind is that this is 1 level deep so if we have a nested object it will not be affectd by this.
+</br></br>
+
 <h2>15 - LocalStorage and Event Delegation</h2>
 
 1. <b>Form - Prevent Default</b>
 </br></br>
-Form has a <code>.preventDefault()</code> method that prevents the page from reloading when the form is submitted.
+Form has a <code>.preventDefault()</code> method that prevents the page from reloading when the form is submitted.</br>
 <i>Example:</i></br>
 <code>function addItem(e) {e.preventDefault();}</code>
 </br></br>
 2. <b>Form - Reset</b>
 </br></br>
-Form has also a <code>.reset()</code> method that erases the typed input.
+Form has also a <code>.reset()</code> method that erases the typed input.</br>
 <i>Example:</i></br>
 <code>function addItem(e) {this.reset();}</code>
 </br></br>
