@@ -40,3 +40,38 @@ There is a "transitionend" event that is fired when a CSS transition has complet
 The `removeTransition` function will run when the transiotion ends.</br>
 <code>key.addEvenetListener('transitionend', removeTransition);</code>
 </br></br>
+
+<h2>15 - LocalStorage and Event Delegation</h2>
+
+1. <b>Form - Prevent Default</b>
+</br></br>
+Form has a <code>.preventDefault()</code> method that prevents the page from reloading when the form is submitted.
+<i>Example:</i></br>
+<code>function addItem(e) {e.preventDefault();}</code>
+</br></br>
+2. <b>Form - Reset</b>
+</br></br>
+Form has also a <code>.reset()</code> method that erases the typed input.
+<i>Example:</i></br>
+<code>function addItem(e) {this.reset();}</code>
+</br></br>
+3. <b>Local Storage</b>
+</br></br>
+Local Storage is an object in a web browser which can store data and when the browser is closed or reloaded this data is still there. It is useful if we want to store some data on client side.</br>
+Local storage has some methods. One of them is `.setItem()`.</br>
+<i>Example:</i></br>
+We need to stringify the object `'items'`, because local storage keeps strings as values.</br>
+<code>localStorage.setItem('items', JSON.stringify('items'));</code></br>
+Another is `.getItem()`.</br>
+<i>Example:</i></br>
+<code>localStorage.getItem('items', JSON.parse('items'));</code></br>
+Another is `.removeItem()`.</br>
+<i>Example:</i></br>
+<code>localStorage.removeItem('items', JSON.parse('items'));</code>
+</br></br>
+4. <b>Event Delegation</b>
+</br></br>
+Event delegation is a way of responding to events through a single common parent rather than each child. When the children are being added the event listener may not be able to reach them, because the didn't exist when the event was created. Instead we can ask a parent to tell all its children to act when the event listener is acticated.</br>
+<i>Example:</i></br>
+We have a list with items that appear on click. Instead of listening to each of the children we can listen to the `<ul>` element.</br>
+</br></br>
