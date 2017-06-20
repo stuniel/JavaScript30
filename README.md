@@ -96,5 +96,14 @@ Another is `.removeItem()`.</br>
 </br></br>
 Event delegation is a way of responding to events through a single common parent rather than each child. When the children are being added the event listener may not be able to reach them, because the didn't exist when the event was created. Instead we can ask a parent to tell all its children to act when the event listener is acticated.</br>
 <i>Example:</i></br>
-We have a list with items that appear on click. Instead of listening to each of the children we can listen to the `<ul>` element.</br>
+We have a list with items that appear on click. Instead of listening to each of the children we can listen to the `<ul>` element.
+</br></br>
+
+<h2>17 - Sorting Band Names Without Articles</h2>
+
+1. <b>Sort Method - Comparing Functions</b>
+</br></br>
+Sort is an array method which takes 2 arguments - current element and the next one. It compares them and puts the one that passes the statement before the onether. We are also able to compare functions with these elements as arguments:</br>
+<i>Example:</i></br>
+<code>array.sort( function(a, b) => strip(a) < strip(b) ? -1 : 1</code>
 </br></br>
