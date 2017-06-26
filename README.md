@@ -107,3 +107,16 @@ Sort is an array method which takes 2 arguments - current element and the next o
 <i>Example:</i></br>
 <code>array.sort( function(a, b) => strip(a) < strip(b) ? -1 : 1</code>
 </br></br>
+
+<h2>21 - Follow Along Links</h2>
+
+1. <b>getBoundingCLientRect()</b>
+</br></br>
+getBoundingCLientRect() method returns all the information about where on the page an element is and what are its width and height.</br>
+<i>Example:</i></br>
+<code>function highlightLinks() {</code></br>
+<code>const linkCoordinates = this.getBoundingCLientRect();</code></br>
+<code>return linkCoordinates;</code></br>
+<code>}</code>
+</br></br>
+
