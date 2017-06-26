@@ -120,3 +120,14 @@ getBoundingCLientRect() method returns all the information about where on the pa
 <code>}</code>
 </br></br>
 
+<h2>22 - Speech Synthesis</h2>
+
+1. <b>Find Method</b>
+</br></br>
+The <code>*.find()</code> method returns the first element in the array that matches the function.</br>
+<i>Example:</i></br>
+<code>function setVoice(e) {</code></br>
+<code>msg.voice = voices.find(voice => voice.name === this.value);</code></br>
+<code>}</code>
+</br></br>
+
